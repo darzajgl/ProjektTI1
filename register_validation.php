@@ -1,9 +1,10 @@
 <?php
-session_start();
 
+
+$db = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 if (isset($_POST['name']))
     // Pobierz informacje o bazie danych z pliku config.php
-    require_once 'config.php';
+    require_once 'db_config.php';
 
 // sprawdź, czy formularz został wysłany
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -22,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = 'Musisz wypełnić wszystkie pola formularza';
     } else {
         // Połącz się z bazą danych
-        $conn = mysqli_connect($host, $username, $password, $database_name);
+        $connection = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
         // sprawdź, czy login jest unikalny
         $query = "SELECT * FROM users WHERE login='$login'";

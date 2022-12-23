@@ -36,9 +36,9 @@
         <legend>Dane edukacyjne</legend>
         <label for="wyksztalcenie">Wykształcenie:</label><br>
         <input type="radio" id="podstawowe" name="wyksztalcenie" value="podstawowe">
-        <label for="podstawowe">Podstawowe</label><br>
+        <label for="podstawowe">Podstawowe</label></b>
         <input type="radio" id="srednie" name="wyksztalcenie" value="srednie">
-        <label for="srednie">Średnie</label><br>
+        <label for="srednie">Średnie</label></b>
         <input type="radio" id="wyzsze" name="wyksztalcenie" value="wyzsze">
         <label for="wyzsze">Wyższe</label><br>
     </fieldset>

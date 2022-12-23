@@ -1,32 +1,51 @@
 <?php
 session_start();
 
+if(!isset($_POST['login']) || (!isset($_POST['haslo'])))
+{
+    header('Location: index.php');
+    exit();
+}
+
 // Pobierz informacje o bazie danych z pliku db_config.php
 require_once 'db_config.php';
 
-// Połącz się z bazą danych
-$conn = new mysqli($host, $username, $password, $database_name);
-if ($conn->connect_errno !== 0) {
-    echo "Error: {$conn->connect_errno}";
+$connection = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
+if ($connection->connect_errno !== 0) {
+    echo "Error: {$connection->connect_errno}";
 } else {
     $login = @$_POST['login'];
     $haslo = $_POST['haslo'];
 
-    $sql = "SELECT * FROM users WHERE login='$login' AND password='$haslo'";
-    if ($result = $conn->query($sql)) {
+    $sql = "SELECT * FROM users WHERE login='$login' AND haslo='$haslo'";
+
+    if ($result = $connection->query($sql)) {
         $ilu_userow = $result->num_rows;
         if ($ilu_userow > 0) {
-            $row = $result->fetch_assoc();
-            $login = $row['login'];
 
+            // flaga czy zalogowany
+            $_SESSION['logged'] = true;
+            $row = $result->fetch_assoc();
+
+            //dane sesyjne
+            $_SESSION['imie'] = $row['imie'];
+            $_SESSION['nazwisko'] = $row['nazwisko'];
+            $_SESSION['login'] = $row['login'];
+            $_SESSION['haslo'] = $row['haslo'];
+            $_SESSION['email'] = $row['email'];
+            $_SESSION['adres'] = $row['adres'];
+            $_SESSION['wyksztalcenie'] = $row['wyksztalcenie'];
+            $_SESSION['zainteresowania'] = $row['zainteresowania'];
+
+            unset($_SESSION['login_error']);
             $result->free_result();
-            echo $login;
+            header('Location:account.php');
         } else {
-            // Brak użytkowników o podanym loginie i haśle
-            echo "pusto";
+            $_SESSION['login_error'] = 'Nieprawidłowy login lub hasło';
+            header('Location:login_form.php');
         }
     }
-    $conn->close();
+    $connection->close();
 }
 
 ?>

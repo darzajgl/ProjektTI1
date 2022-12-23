@@ -14,8 +14,11 @@ SESSION_START();
 <body>
 <h1>Witaj</h1>
 <form>
+    <fieldset>
     <br><a href="login_form.php">Przejdź do strony logowania</a>
+    </br>
     <br><a href="register_form.php">Przejdź do formularza rejestracji</a>
+    </fieldset>
 </form>
 </body>
 </html>
