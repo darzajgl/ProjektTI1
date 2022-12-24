@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-if(!isset($_POST['login']) || (!isset($_POST['haslo'])))
-{
+if (!isset($_POST['login']) || (!isset($_POST['haslo']))) {
     header('Location: index.php');
     exit();
 }
@@ -17,29 +16,42 @@ if ($connection->connect_errno !== 0) {
     $login = @$_POST['login'];
     $haslo = $_POST['haslo'];
 
-    $sql = "SELECT * FROM users WHERE login='$login' AND haslo='$haslo'";
+//zabezpieczenie przed wstrzykiwaniem SQL
+    $login = htmlentities($login, ENT_QUOTES, "UTF-8");
 
-    if ($result = $connection->query($sql)) {
-        $ilu_userow = $result->num_rows;
-        if ($ilu_userow > 0) {
 
-            // flaga czy zalogowany
-            $_SESSION['logged'] = true;
+//    $sql = "SELECT * FROM users WHERE login='$login' AND haslo='$haslo'";
+
+    if ($result = $connection->query(
+        sprintf("SELECT * FROM users WHERE login='%s'",
+            mysqli_real_escape_string($connection, $login)))) {
+
+        $users_num = $result->num_rows;
+        if ($users_num > 0) {
             $row = $result->fetch_assoc();
+            if (password_verify($haslo, $row['haslo'])) {
 
-            //dane sesyjne
-            $_SESSION['imie'] = $row['imie'];
-            $_SESSION['nazwisko'] = $row['nazwisko'];
-            $_SESSION['login'] = $row['login'];
-            $_SESSION['haslo'] = $row['haslo'];
-            $_SESSION['email'] = $row['email'];
-            $_SESSION['adres'] = $row['adres'];
-            $_SESSION['wyksztalcenie'] = $row['wyksztalcenie'];
-            $_SESSION['zainteresowania'] = $row['zainteresowania'];
+                // flaga czy zalogowany
+                $_SESSION['logged'] = true;
+                //dane sesyjne
+                $_SESSION['imie'] = $row['imie'];
+                $_SESSION['nazwisko'] = $row['nazwisko'];
+                $_SESSION['login'] = $row['login'];
+                $_SESSION['haslo'] = $row['haslo'];
+                $_SESSION['email'] = $row['email'];
+                $_SESSION['adres'] = $row['adres'];
+                $_SESSION['wyksztalcenie'] = $row['wyksztalcenie'];
+                $_SESSION['zainteresowania'] = $row['zainteresowania'];
 
-            unset($_SESSION['login_error']);
-            $result->free_result();
-            header('Location:account.php');
+                //usunięcie zmiennej sesyjnej blędu
+                unset($_SESSION['login_error']);
+                $result->free_result();
+                //przekierowanie
+                header('Location:account.php');
+            } else {
+                $_SESSION['login_error'] = 'Nieprawidłowy login lub hasło';
+                header('Location:login_form.php');
+            }
         } else {
             $_SESSION['login_error'] = 'Nieprawidłowy login lub hasło';
             header('Location:login_form.php');

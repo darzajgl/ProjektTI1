@@ -23,7 +23,7 @@ if (!isset($_SESSION['logged'])) {
         echo "<p>Witaj " . $_SESSION['imie'] . " " . $_SESSION['nazwisko'] . "!</p>";
         echo "<p><b>Twoje dane:</b></p>";
         echo "<p>Login: " . $_SESSION['login'] . "</p>";
-        echo "<p>Hasło: " . $_SESSION['haslo'] . "</p>";
+
         echo "<p>E-mail: " . $_SESSION['email'] . "</p>";
         echo "<p>Adres: " . $_SESSION['adres'] . "</p>";
         echo "<p>Wykształcenie: " . $_SESSION['wyksztalcenie'] . "</p>";
@@ -31,6 +31,8 @@ if (!isset($_SESSION['logged'])) {
 
         echo "<a href ='logout.php'>Wyloguj się!</a>";
         ?>
+        <br>
+        <br><a href="index.php">Przejdź do strony głównej</a>
     </fieldset>
 </form>
 </body>
