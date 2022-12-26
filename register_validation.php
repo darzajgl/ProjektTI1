@@ -1,7 +1,11 @@
 <?php
 session_start();
+//wylogowanie użytkownika, jeśli był zalogowany
 $_SESSION['logged'] = false;
+
+
 if (isset($_POST['imie'])) {
+    //przypisanie zmiennych
     $status_OK = true;
     $imie = $_POST['imie'];
     $nazwisko = $_POST['nazwisko'];
@@ -12,6 +16,7 @@ if (isset($_POST['imie'])) {
     $wyksztalcenie = $_POST['wyksztalcenie'];
     $zainteresowania = $_POST['zainteresowania'];
 
+    //sprawdzenie poszczególnych danych
     if (strlen($imie) < 3 || strlen($imie) > 50) {
         $status_OK = false;
         $_SESSION['error_imie'] = "Imię musi posiadać od 3 do 50 znaków ";
@@ -36,7 +41,7 @@ if (isset($_POST['imie'])) {
     $email_sanit = filter_var($email, FILTER_SANITIZE_EMAIL);
     if ((!filter_var($email, FILTER_VALIDATE_EMAIL)) || $email_sanit != $email) {
         $status_OK = false;
-        $_SESSION['error_email'] = "Nieprawidłowy adres email";
+        $_SESSION['error_email'] = "<span class='error'>Nieprawidłowy adres email</span>";
         header('Location:register_form.php');
     }
     $haslo_hash = password_hash($haslo, PASSWORD_DEFAULT);
@@ -46,21 +51,6 @@ if (isset($_POST['imie'])) {
         $_SESSION['error_adres'] = "Adres musi posiadać od 3 do 255 znaków";
         header('Location:register_form.php');
     }
-//    if (strlen($wyksztalcenie) < 3 || strlen($wyksztalcenie) > 50) {
-//        $status_OK = false;
-//        $_SESSION['error_wyksztalcenie'] = "Wykształcenie musi posiadać od 3 do 50 znaków";
-//        header('Location:register_form.php');
-//    }
-
-//recaptcha
-    $recaptha_secret_key = "your-recaptcha-secret-key"; // Tutaj wpisz swój klucz tajny reCAPTCHA
-    $recaptha_response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $recaptha_secret_key . '&response=' . $_POST['g-recaptcha-response']);
-    $recaptha_answer = json_decode($recaptha_response);
-//    if (!($recaptha_answer->success)) {
-//        $status_OK = false;
-//        $_SESSION['error_recaptcha'] = "Potwierdź, że nie jesteś botem";
-//        header('Location:register_form.php');
-//    }
 
     require_once "db_config.php";
     mysqli_report(MYSQLI_REPORT_STRICT);
@@ -74,13 +64,15 @@ if (isset($_POST['imie'])) {
             $result = $connection->query("SELECT id FROM users WHERE email='$email'");
 
             if (!$result) throw new Exception(mysqli_error($connection));
+
+            //sprawdzenie czy podany email istnieje w bazie danyc
             $how_many_emails = mysqli_num_rows($result);
             if ($how_many_emails > 0) {
                 $status_OK = false;
-                $_SESSION['error_email'] = "Konto z podanym adreseme-mail już istnieje";
+                $_SESSION['error_email'] = "Konto z podanym adresem e-mail już istnieje";
                 header('Location:register_form.php');
             } else {
-                // sprawdzenie czy login już istnieje
+                // sprawdzenie czy login już istnieje w bazie danych
                 $result = mysqli_query($connection, "SELECT id FROM users WHERE login='$login'");
 
                 if (!$result) {
@@ -100,8 +92,17 @@ if (isset($_POST['imie'])) {
 VALUES ('$imie', '$nazwisko', '$login', '$haslo_hash', '$email', '$adres', '$wyksztalcenie', '" . implode(',', $zainteresowania) . "')")) ;
                     $_SESSION['success_registration'] = true;
                     $_SESSION['logged'] = true;
-                    header('Location:register_success.php');
 
+                    //dane sesyjne
+                    $_SESSION['imie'] = $imie;
+                    $_SESSION['nazwisko'] = $nazwisko;
+                    $_SESSION['login'] = $login;
+                    $_SESSION['haslo'] = $haslo;
+                    $_SESSION['email'] = $email;
+                    $_SESSION['adres'] = $adres;
+                    $_SESSION['wyksztalcenie'] = $wyksztalcenie;
+                    $_SESSION['zainteresowania'] = implode(', ', $zainteresowania);
+                    header('Location:register_success.php');
                 }
                 //zamknięcie połączenia
                 $connection->close();
@@ -109,10 +110,9 @@ VALUES ('$imie', '$nazwisko', '$login', '$haslo_hash', '$email', '$adres', '$wyk
         }
     } catch
     (Exception $error) {
-        $_SESSION['error_server'] = "Błąd serwera";
+        $_SESSION['error_server'] = $error->getMessage();
         header('Location:register_form.php');
     }
-
 }
 
 ?>

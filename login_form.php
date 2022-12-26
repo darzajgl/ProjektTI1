@@ -1,5 +1,6 @@
 <?php
 session_start();
+//sprawdzenie czy ktoś jest już zalogowany
 if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
     header('Location:account.php');
     exit();
@@ -18,7 +19,7 @@ if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
 
 <body>
 <form action="login_validation.php" method="post">
-    <h1>Podaj dane</h1>
+    <h1>Strona logowania</h1>
     <fieldset>
         <label for="login"> Login:</label>
         <input type="text" name="login" id="login" required>
@@ -27,9 +28,11 @@ if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
         <input type="password" name="haslo" id="haslo" required>
         <br>
     </fieldset>
-
     <?php
-    if (isset($_SESSION['login_error'])) echo $_SESSION['login_error'];
+    if (isset($_SESSION['login_error'])) {
+        echo $_SESSION['login_error'];
+        unset($_SESSION['login_error']);
+    }
     ?>
     <fieldset>
 

@@ -15,6 +15,7 @@ if (isset($_SESSION['error_server'])) {
 </head>
 <body>
 <form action="register_validation.php" method="post">
+    <h1>Rejestracja</h1>
     <fieldset>
         <legend>Dane osobowe</legend>
         <label for="imie">Imię:</label>
@@ -60,7 +61,7 @@ if (isset($_SESSION['error_server'])) {
         <input type="email" name="email" id="email" required>
         <?php
         if (isset($_SESSION['error_email'])) {
-            echo $_SESSION['error_email'];
+            echo '<span class="error">' . $_SESSION['error_email'] . '</span>';
             unset($_SESSION['error_email']);
         }
         ?>
@@ -96,20 +97,14 @@ if (isset($_SESSION['error_server'])) {
         <label for="kultura">Kultura</label><br>
         <input type="checkbox" id="podroze" name="zainteresowania[]" value="podroze">
         <label for="podroze">Podróże</label><br>
-        <input type="checkbox" id="podroze" name="zainteresowania[]"
+        <input type="checkbox" id="podroze" name="zainteresowania[]" value="kino">
         <label for="kino">Kino</label><br>
-        <input type="checkbox" id="kino" name="zainteresowania[]"
+        <input type="checkbox" id="kino" name="zainteresowania[]" value="muzyka">
         <label for="muzyka">Muzyka</label><br>
     </fieldset>
     <fieldset>
         <div class="g-recaptcha" data-sitekey="6Lcz2Z0jAAAAALipOlsa3fPD1iNdwUzZ41M5RHG4"></div>
         <input type="submit" value="Zarejestruj się">
-<!--        --><?php
-//        if (isset($_SESSION['error_recaptcha'])) {
-//            echo $_SESSION['error_recaptcha'];
-//            unset($_SESSION['error_recaptcha']);
-//        }
-//        ?>
         <br><a href="index.php">Przejdź do strony głównej</a>
     </fieldset>
 

@@ -19,7 +19,6 @@ if (!isset($_SESSION['logged'])) {
     <fieldset>
         <?php
 
-
         echo "<p>Witaj " . $_SESSION['imie'] . " " . $_SESSION['nazwisko'] . "!</p>";
         echo "<p><b>Twoje dane:</b></p>";
         echo "<p>Login: " . $_SESSION['login'] . "</p>";
@@ -30,10 +29,10 @@ if (!isset($_SESSION['logged'])) {
         echo "<p>Zainteresowania: " . $_SESSION['zainteresowania'] . "</p>";
 
         echo "<a href ='logout.php'>Wyloguj się!</a>";
+        echo"<br><br>";
+        echo "<a href='index.php'>Przejdź do strony głównej</a>"
         ?>
-        <br>
-        <br><a href="index.php">Przejdź do strony głównej</a>
-    </fieldset>
+      </fieldset>
 </form>
 </body>
 </html>
