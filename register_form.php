@@ -18,8 +18,7 @@ if (isset($_SESSION['error_server'])) {
     <h1>Rejestracja</h1>
     <fieldset>
         <legend>Dane osobowe</legend>
-        <label for="imie">Imię:</label>
-        <input type="text" name="imie" id="imie" required>
+        <input type="text" name="imie" required placeholder="Imię" id="imie">
         <?php
         if (isset($_SESSION['error_imie'])) {
             echo $_SESSION['error_imie'];
@@ -27,8 +26,8 @@ if (isset($_SESSION['error_server'])) {
         }
         ?>
         <br>
-        <label for="nazwisko">Nazwisko:</label>
-        <input type="text" name="nazwisko" id="nazwisko" required>
+
+        <input type="text" name="nazwisko" required placeholder="Nazwisko" id="nazwisko">
         <?php
         if (isset($_SESSION['error_nazwisko'])) {
             echo $_SESSION['error_nazwisko'];
@@ -37,8 +36,7 @@ if (isset($_SESSION['error_server'])) {
         ?>
 
         <br>
-        <label for="login"> Login:</label>
-        <input type="text" name="login" id="login" required>
+        <input type="text" name="login" required placeholder="Login" id="login">
         <?php
         if (isset($_SESSION['error_login'])) {
             echo $_SESSION['error_login'];
@@ -47,8 +45,8 @@ if (isset($_SESSION['error_server'])) {
         ?>
 
         <br>
-        <label for="haslo"> Hasło:</label>
-        <input type="password" name="haslo" id="haslo" required>
+
+        <input type="password" name="haslo" required placeholder="Hasło" id="haslo">
         <?php
         if (isset($_SESSION['error_haslo'])) {
             echo $_SESSION['error_haslo'];
@@ -57,8 +55,7 @@ if (isset($_SESSION['error_server'])) {
         ?>
 
         <br>
-        <label for="email"> Adres e-mail:</label>
-        <input type="email" name="email" id="email" required>
+        <input type="email" name="email" required placeholder="Adres e-mail" id="email">
         <?php
         if (isset($_SESSION['error_email'])) {
             echo '<span class="error">' . $_SESSION['error_email'] . '</span>';
@@ -69,8 +66,8 @@ if (isset($_SESSION['error_server'])) {
     </fieldset>
     <fieldset>
         <legend>Dane adresowe</legend>
-        <label for="adres"> Adres:</label>
-        <textarea name="adres" id="adres" required></textarea>
+
+        <textarea name="adres" required placeholder="Adres" id="adres"></textarea>
         <?php
         if (isset($_SESSION['error_adres'])) {
             echo $_SESSION['error_adres'];
@@ -80,8 +77,7 @@ if (isset($_SESSION['error_server'])) {
 
     </fieldset>
     <fieldset>
-        <legend>Dane edukacyjne</legend>
-        <label for="wyksztalcenie">Wykształcenie:</label><br>
+        <legend>Wykształcenie</legend>
         <input type="radio" id="podstawowe" name="wyksztalcenie" value="podstawowe">
         <label for="podstawowe">Podstawowe</label></b>
         <input type="radio" id="srednie" name="wyksztalcenie" value="srednie">
@@ -90,7 +86,7 @@ if (isset($_SESSION['error_server'])) {
         <label for="wyzsze">Wyższe</label><br>
     </fieldset>
     <fieldset>
-        <label for="zainteresowania">Zainteresowania:</label><br>
+        <legend>Zainteresowania</legend>
         <input type="checkbox" id="sport" name="zainteresowania[]" value="sport">
         <label for="sport">Sport</label><br>
         <input type="checkbox" id="kultura" name="zainteresowania[]" value="kultura">

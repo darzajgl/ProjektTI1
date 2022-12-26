@@ -21,11 +21,10 @@ if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
 <form action="login_validation.php" method="post">
     <h1>Strona logowania</h1>
     <fieldset>
-        <label for="login"> Login:</label>
-        <input type="text" name="login" id="login" required>
+
+        <input type="text" name="login" required placeholder="login" id="login">
         <br>
-        <label for="haslo"> Hasło:</label>
-        <input type="password" name="haslo" id="haslo" required>
+        <input type="password" name="haslo"  required placeholder="Hasło" id="haslo" required>
         <br>
     </fieldset>
     <?php
@@ -37,8 +36,7 @@ if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
     <fieldset>
 
         <input type="submit" value="Zaloguj się">
-    </fieldset>
-    <fieldset>
+        <br>
         <br><a href="index.php">Przejdź do strony głównej</a>
     </fieldset>
 </form>
