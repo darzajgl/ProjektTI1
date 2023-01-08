@@ -10,13 +10,13 @@ body {
 h1 {
     text-align: center;
     margin: 40px 0;
-    color: white;
+    color: #262424;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* Formularz */
 form {
-    width:400px;
+    width: 400px;
     margin: 0 auto;
     text-align: left;
     background-color: #fcf8d2;
@@ -81,6 +81,7 @@ label.error {
     color: red;
     font-size: 12px;
 }
+
 .error {
     background-color: red;
 }
@@ -104,4 +105,10 @@ input[type="submit"], button, *[type="button"] {
 }
 
 input[type="submit"]:hover, button:hover, *[type="button"]:hover {
-    background-color: #45a049;}
+    background-color: #45a049;
+}
+
+/*input[type="text"] {*/
+/*    width: 90%;*/
+/*    height: calc(90% / 2);*/
+/*}*/

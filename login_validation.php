@@ -1,5 +1,6 @@
 <?php
 session_start();
+//przekierowanie do login_form
 if (!isset($_POST['login']) || (!isset($_POST['haslo']))) {
     header('Location: index.php');
     exit();
@@ -10,7 +11,7 @@ try {
 //połączenie z bazą danych
     $connection = mysqli_connect(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
     if ($connection->connect_errno !== 0) {
-        throw new Exception("<span style='color: red'>Błąd połączenia z bazą danych: {$connection->connect_errno}</span>");
+        throw new Exception("<span class='error'>Błąd połączenia z bazą danych: {$connection->connect_errno}</span>");
     } else {
         $login = $_POST['login'];
         $haslo = $_POST['haslo'];
@@ -54,8 +55,7 @@ try {
             $connection->close();
         }
     }
-}
-catch (Exception $error) {
+} catch (Exception $error) {
     // obsłuż wyjątek
     $_SESSION['login_error'] = $error->getMessage();
     header('Location:login_form.php');

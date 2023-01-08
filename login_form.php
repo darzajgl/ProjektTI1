@@ -13,7 +13,6 @@ if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>Strona logowania</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -24,17 +23,16 @@ if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
 
         <input type="text" name="login" required placeholder="login" id="login">
         <br>
-        <input type="password" name="haslo"  required placeholder="Hasło" id="haslo" required>
+        <input type="password" name="haslo" required placeholder="Hasło" id="haslo">
         <br>
+        <?php
+        if (isset($_SESSION['login_error'])) {
+            echo '<span class="error">' . $_SESSION['login_error'] . '</span>';
+            unset($_SESSION['login_error']);
+        }
+        ?>
     </fieldset>
-    <?php
-    if (isset($_SESSION['login_error'])) {
-        echo $_SESSION['login_error'];
-        unset($_SESSION['login_error']);
-    }
-    ?>
     <fieldset>
-
         <input type="submit" value="Zaloguj się">
         <br>
         <br><a href="index.php">Przejdź do strony głównej</a>

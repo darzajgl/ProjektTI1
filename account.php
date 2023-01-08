@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+//przekierowanie do index jeśli użytkownik nie jest zalogowany
 if (!isset($_SESSION['logged'])) {
     header('Location: index.php');
 }
@@ -18,21 +20,22 @@ if (!isset($_SESSION['logged'])) {
 <form>
     <fieldset>
         <?php
-
         echo "<p>Witaj " . $_SESSION['imie'] . " " . $_SESSION['nazwisko'] . "!</p>";
-        echo "<p><b>Twoje dane:</b></p>";
+        echo "<hr><p><b>Twoje dane:</b></p>";
         echo "<p>Login: " . $_SESSION['login'] . "</p>";
-
         echo "<p>E-mail: " . $_SESSION['email'] . "</p>";
         echo "<p>Adres: " . $_SESSION['adres'] . "</p>";
         echo "<p>Wykształcenie: " . $_SESSION['wyksztalcenie'] . "</p>";
         echo "<p>Zainteresowania: " . $_SESSION['zainteresowania'] . "</p>";
-
+        ?>
+    </fieldset>
+    <fieldset>
+        <?php
         echo "<a href ='logout.php'>Wyloguj się!</a>";
-        echo"<br><br>";
+        echo "<br><br>";
         echo "<a href='index.php'>Przejdź do strony głównej</a>"
         ?>
-      </fieldset>
+    </fieldset>
 </form>
 </body>
 </html>

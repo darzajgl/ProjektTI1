@@ -3,6 +3,12 @@ session_start();
 //wylogowanie użytkownika, jeśli był zalogowany
 $_SESSION['logged'] = false;
 
+//przekierowanie do register_form
+if (!isset($_POST['imie'])) {
+    header('Location: register_form.php');
+    exit();
+}
+
 
 if (isset($_POST['imie'])) {
     //przypisanie zmiennych
@@ -51,6 +57,12 @@ if (isset($_POST['imie'])) {
         $_SESSION['error_adres'] = "Adres musi posiadać od 3 do 255 znaków";
         header('Location:register_form.php');
     }
+    if (empty($zainteresowania)) {
+        $status_OK = false;
+        $_SESSION['error_zainteresowania'] = "Proszę wybrać co najmniej jedno zainteresowanie";
+        header('Location: register_form.php');
+    }
+
 
     require_once "db_config.php";
     mysqli_report(MYSQLI_REPORT_STRICT);

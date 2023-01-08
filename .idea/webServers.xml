@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="16a58139-f9c2-45ce-8145-a78ebb39421e" name="localhost" url="http://localhost/p_v8">
-        <fileTransfer mountedRoot="C:\xampp\htdocs\p_v8" accessType="MOUNT" port="0" />
+      <webServer id="16a58139-f9c2-45ce-8145-a78ebb39421e" name="localhost" url="http://localhost/TI_projekt1">
+        <fileTransfer mountedRoot="C:\xampp\htdocs\TI_projekt1" accessType="MOUNT" port="0" />
       </webServer>
     </option>
   </component>

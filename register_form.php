@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['error_server'])) {
-    echo $_SESSION['error_server'];
+    echo '<span class="error">' . $_SESSION['error_server'] . '</span>';
     unset($_SESSION['error_server']);
 }
 ?>
@@ -21,7 +21,7 @@ if (isset($_SESSION['error_server'])) {
         <input type="text" name="imie" required placeholder="Imię" id="imie">
         <?php
         if (isset($_SESSION['error_imie'])) {
-            echo $_SESSION['error_imie'];
+            echo '<span class="error">' . $_SESSION['error_imie'] . '</span>';
             unset($_SESSION['error_imie']);
         }
         ?>
@@ -30,7 +30,7 @@ if (isset($_SESSION['error_server'])) {
         <input type="text" name="nazwisko" required placeholder="Nazwisko" id="nazwisko">
         <?php
         if (isset($_SESSION['error_nazwisko'])) {
-            echo $_SESSION['error_nazwisko'];
+            echo '<span class="error">' . $_SESSION['error_nazwisko'] . '</span>';
             unset($_SESSION['error_nazwisko']);
         }
         ?>
@@ -39,17 +39,16 @@ if (isset($_SESSION['error_server'])) {
         <input type="text" name="login" required placeholder="Login" id="login">
         <?php
         if (isset($_SESSION['error_login'])) {
-            echo $_SESSION['error_login'];
+            echo '<span class="error">' . $_SESSION['error_login'] . '</span>';
             unset($_SESSION['error_login']);
         }
         ?>
 
         <br>
-
         <input type="password" name="haslo" required placeholder="Hasło" id="haslo">
         <?php
         if (isset($_SESSION['error_haslo'])) {
-            echo $_SESSION['error_haslo'];
+            echo '<span class="error">' . $_SESSION['error_haslo'] . '</span>';
             unset($_SESSION['error_haslo']);
         }
         ?>
@@ -67,10 +66,11 @@ if (isset($_SESSION['error_server'])) {
     <fieldset>
         <legend>Dane adresowe</legend>
 
-        <textarea name="adres" required placeholder="Adres" id="adres"></textarea>
+        <textarea name="adres" style="width: 100%; height: 50%" required placeholder="Adres" id="adres"></textarea>
         <?php
         if (isset($_SESSION['error_adres'])) {
-            echo $_SESSION['error_adres'];
+            echo '<span class="error">' . $_SESSION['error_adres'] . '</span>';
+
             unset($_SESSION['error_adres']);
         }
         ?>
@@ -78,13 +78,14 @@ if (isset($_SESSION['error_server'])) {
     </fieldset>
     <fieldset>
         <legend>Wykształcenie</legend>
-        <input type="radio" id="podstawowe" name="wyksztalcenie" value="podstawowe">
+        <input type="radio" id="podstawowe" name="wyksztalcenie" value="podstawowe" required>
         <label for="podstawowe">Podstawowe</label></b>
-        <input type="radio" id="srednie" name="wyksztalcenie" value="srednie">
+        <input type="radio" id="srednie" name="wyksztalcenie" value="srednie" required">
         <label for="srednie">Średnie</label></b>
-        <input type="radio" id="wyzsze" name="wyksztalcenie" value="wyzsze">
+        <input type="radio" id="wyzsze" name="wyksztalcenie" value="wyzsze" required>
         <label for="wyzsze">Wyższe</label><br>
     </fieldset>
+
     <fieldset>
         <legend>Zainteresowania</legend>
         <input type="checkbox" id="sport" name="zainteresowania[]" value="sport">
@@ -97,6 +98,13 @@ if (isset($_SESSION['error_server'])) {
         <label for="kino">Kino</label><br>
         <input type="checkbox" id="kino" name="zainteresowania[]" value="muzyka">
         <label for="muzyka">Muzyka</label><br>
+        <?php
+        if (isset($_SESSION['error_zainteresowania'])) {
+            echo '<span class="error">' . $_SESSION['error_zainteresowania'] . '</span>';
+            unset($_SESSION['error_zainteresowania']);
+        }
+        ?>
+
     </fieldset>
     <fieldset>
         <div class="g-recaptcha" data-sitekey="6Lcz2Z0jAAAAALipOlsa3fPD1iNdwUzZ41M5RHG4"></div>

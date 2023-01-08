@@ -10,15 +10,13 @@ SESSION_START();
     <title>Strona główna</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
 <form>
     <h1>Witaj</h1>
     <fieldset>
-    <br><a href="login_form.php">Przejdź do strony logowania</a>
-    </br>
-    <br><a href="register_form.php">Przejdź do formularza rejestracji</a>
+        <br><a href="login_form.php">Przejdź do strony logowania</a>
+        </br>
+        <br><a href="register_form.php">Przejdź do formularza rejestracji</a>
     </fieldset>
 </form>
 </body>
